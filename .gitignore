@@ -17,3 +17,10 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+.bash_history
+.config/
+.lesshst
+.viminfo
+vite.config.js.*
+public/vendor/
+storage

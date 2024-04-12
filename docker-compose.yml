@@ -1,0 +1,59 @@
+version: '3.1'
+
+services:
+  app:
+      image: odyssey-app:latest
+      container_name: odyssey-app
+      build:
+        context: ./
+        dockerfile: ./deploy/app/Dockerfile
+      volumes:
+          - ./:/var/www/odyssey:delegated
+      environment:
+          - APP_ENV=local
+      networks:
+          - app_network
+      depends_on:
+          - node
+  node:
+      image: odyssey-node:latest
+      container_name: odyssey-node
+      build:
+          context: ./
+          dockerfile: ./deploy/node/Dockerfile
+      volumes:
+          - .:/var/www/odyssey
+      ports:
+          - "5173:5173"
+      networks:
+          - app_network
+  nginx:
+      image: nginx:latest
+      container_name: odyssey-proxy
+      ports:
+          - "80:80"
+      volumes:
+          - ./deploy/proxy/default.conf:/etc/nginx/conf.d/default.conf
+          - .:/var/www/odyssey
+          - ./public:/var/www/odyssey/public
+      depends_on:
+          - app
+      networks:
+          - app_network
+  mysql:
+    image: mysql:latest
+    container_name: odyssey-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3300:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    restart: always  # Optional: Ensures the container restarts automatically if it stops
+
+volumes:
+  mysql-data:
+
+networks:
+    app_network:
+        driver: bridge
