@@ -35,7 +35,7 @@ build: ## Builds the app container image
 #	$(call sync_local)
 
 up: ## Start the containers using docker-compose
-	docker-compose up
+	docker-compose --env-file .env up
 
 down: ## Stop and remove the containers defined in docker-compose
 	docker-compose down
@@ -44,6 +44,12 @@ logs: ## Display the logs for the containers
 	docker-compose logs
 
 shell: ## Connect to the shell on the app container
-	docker exec -u root -it odyssey-app bash
+	docker exec -it odyssey-app bash
+
+test: ## Run unit and integration tests
+	docker run odyssey-app php vendor/phpunit/phpunit/phpunit
+
+seed-db: ## Seed the database with initial data
+	docker exec odyssey-app php artisan db:seed --class=OdysseyDatabaseSeeder
 
 .DEFAULT_GOAL := help

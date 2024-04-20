@@ -11,10 +11,15 @@ services:
           - ./:/var/www/odyssey:delegated
       environment:
           - APP_ENV=local
+      env_file:
+          - .env
       networks:
           - app_network
+      links:
+          - mysql:odyssey-db
       depends_on:
           - node
+          - mysql
   node:
       image: odyssey-node:latest
       container_name: odyssey-node
@@ -23,6 +28,8 @@ services:
           dockerfile: ./deploy/node/Dockerfile
       volumes:
           - .:/var/www/odyssey
+      env_file:
+          - .env
       ports:
           - "5173:5173"
       networks:
@@ -46,9 +53,11 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
     ports:
-      - "3300:3306"
+      - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
+    networks:
+        - app_network
     restart: always  # Optional: Ensures the container restarts automatically if it stops
 
 volumes:
@@ -56,4 +65,3 @@ volumes:
 
 networks:
     app_network:
-        driver: bridge
