@@ -4,10 +4,11 @@
 
 ### Getting started
 
-1. Build the containers: `make build`
-2. Run the containers: `make up`
-3. Run migrations: `make shell` followed by `php artisan migrate`
-4. Seed the database: `make seed-db`
+1. Copy env file: `cp .env.example .env` and update it if necessary but the defaults should suffice for local work.
+2. Build the containers: `make build`
+3. Run the containers: `make up`
+4. Run migrations: `make shell` followed by `php artisan migrate`
+5. Seed the database: `make seed-db`
 
 ### Running tests
 
