@@ -24,3 +24,5 @@ yarn-error.log
 vite.config.js.*
 public/vendor/
 /storage
+.composer
+resources/views/vendor

@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OdysseyBook;
-use App\Models\OdysseyBookMetadata;
+use App\Support\Facades\OdysseyService;
 use Illuminate\View\View;
 
 
@@ -15,11 +14,7 @@ class OdysseyHomeController extends Controller
      * @returns View
      */
     public function show() {
-        $maxPageNum = OdysseyBookMetadata::where('key', 'num_pages')->firstOrFail()->value;
-        $randomPageNum = mt_rand(1, $maxPageNum);
 
-        $pageText = OdysseyBook::where('page_number', $randomPageNum)->firstOrFail()->content;
-
-        return view('odyssey_home', ['pageText' => $pageText]);
+        return view('odyssey_home', ['page' => OdysseyService::fetchRandomOdysseyPage()]);
     }
 }

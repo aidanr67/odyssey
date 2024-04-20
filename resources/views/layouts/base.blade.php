@@ -18,7 +18,7 @@
 
         @vite(['resources/sass/app.scss', 'resources/js/app.js'])
         @livewireStyles
-        @livewireScripts
+        <script src="{{ asset('public/vendor/livewire/livewire.js') }}"></script>
 
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
