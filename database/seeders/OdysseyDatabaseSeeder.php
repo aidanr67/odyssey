@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\OdysseyBook;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Spatie\PdfToText\Pdf;
@@ -29,11 +28,15 @@ class OdysseyDatabaseSeeder extends Seeder
         $odysseyArray = array_slice($odysseyArray, 5, -1);
         $totalPages = count($odysseyArray);
         $processedPages = 0;
+        $pageOffset = 4;
 
         foreach ($odysseyArray as $key => $value) {
+            $pageNumber = $key + $pageOffset;
+            // Strip the page number from the content.
+            $value = str_replace($pageNumber, '', $value);
             DB::table('odyssey_book')->insert([
-                'page_number' => $key,
-                'content' => $value,
+                'page_number' => $pageNumber,
+                'content' => utf8_decode($value),
             ]);
             $processedPages++;
             $percentage = round(($processedPages / $totalPages) * 100, 2);

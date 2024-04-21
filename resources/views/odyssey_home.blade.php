@@ -5,6 +5,6 @@
         @media(prefers-color-scheme: dark){}
     </style>
 
-    <livewire:odyssey-form page="{{ $page }}" />
+    <livewire:odyssey-form page="{!! $page !!} $page }}" pageNumber="{{ $pageNumber }}"/>
 
 @endsection

@@ -2,9 +2,18 @@
 
 namespace Tests\Feature\Controllers;
 
+use App\Models\OdysseyBook;
 use App\Support\Facades\OdysseyService;
 use Tests\TestCase;
 
+/**
+ * Class OdysseyHomeControllerTest
+ *
+ * @package Tests\Feature\Controllers
+ *
+ * @test
+ * @small
+ */
 class OdysseyHomeControllerTest extends TestCase
 {
     /**
@@ -12,9 +21,14 @@ class OdysseyHomeControllerTest extends TestCase
      */
     public function test_show_odyssey_home(): void
     {
+        $page = OdysseyBook::make([
+            'content' => 'test',
+            'page_number' => 1,
+        ]);
+
         OdysseyService::shouldReceive('fetchRandomOdysseyPage')
             ->withNoArgs()
-            ->andReturn('test');
+            ->andReturn($page);
 
         $response = $this->get('/');
 

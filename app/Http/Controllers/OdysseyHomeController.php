@@ -6,6 +6,11 @@ use App\Support\Facades\OdysseyService;
 use Illuminate\View\View;
 
 
+/**
+ * Class OdysseyHomeController
+ *
+ * @package App\http\Controller
+ */
 class OdysseyHomeController extends Controller
 {
     /**
@@ -14,7 +19,10 @@ class OdysseyHomeController extends Controller
      * @returns View
      */
     public function show() {
-
-        return view('odyssey_home', ['page' => OdysseyService::fetchRandomOdysseyPage()]);
+        $page = OdysseyService::fetchRandomOdysseyPage();
+        return view('odyssey_home', [
+            'page' => $page->content,
+            'pageNumber' => $page->page_number,
+        ]);
     }
 }

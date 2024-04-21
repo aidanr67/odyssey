@@ -6,6 +6,8 @@ use App\Models\OdysseyBookMetadata;
 
 /**
  * Class OdysseyService
+ *
+ * @package App\Services
  */
 class OdysseyService {
 
@@ -14,11 +16,11 @@ class OdysseyService {
      *
      * @return string
      */
-    public function fetchRandomOdysseyPage(): string
+    public function fetchRandomOdysseyPage(): OdysseyBook
     {
         $maxPageNum = OdysseyBookMetadata::where('key', 'num_pages')->firstOrFail()->value;
         $randomPageNum = mt_rand(1, $maxPageNum);
 
-        return OdysseyBook::where('page_number', $randomPageNum)->firstOrFail()->content;
+        return OdysseyBook::where('page_number', $randomPageNum)->firstOrFail();
     }
 }
