@@ -2,13 +2,11 @@
 
 namespace Tests\Feature\Services;
 
-use App\Models\OdysseyBook;
+use App\External\ChatGpt\ChatGptClient;
 use App\Models\OdysseyBookMetadata;
-use App\Services\ChatGptClient;
 use App\Services\OdysseyService;
 use Database\Factories\OdysseyBookFactory;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\App;
 use Mockery;
 use Tests\TestCase;
 

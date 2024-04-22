@@ -1,13 +1,28 @@
 <?php
 
-namespace Tests\Unit\Services;
+namespace Tests\Unit\External;
 
-use App\Services\ChatGptClient;
+use App\External\ChatGpt\ChatGptClient;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
+/**
+ * Class ChatGptClientTest
+ *
+ * @package Tests\Unit\Services
+ *
+ * @test
+ * @small
+ */
 class ChatGptClientTest extends TestCase
 {
+    /**
+     * Given a valid chatGPT config
+     * When calling the ChatGPT client
+     * Test that it returns the expected response without failure.
+     *
+     * @return void
+     */
     public function testQuery()
     {
         $config = [

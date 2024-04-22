@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use App\External\ChatGpt\ChatGptClient;
 use App\Models\OdysseyBook;
 use App\Models\OdysseyBookMetadata;
 use Illuminate\Support\Facades\App;

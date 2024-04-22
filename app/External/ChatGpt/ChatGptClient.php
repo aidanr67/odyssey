@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Services;
+namespace App\External\ChatGpt;
 
+use App\External\AuthenticatedCurlClientInterface;
 use Illuminate\Support\Facades\Http;
 use RuntimeException;
 
@@ -10,7 +11,7 @@ use RuntimeException;
  *
  * @package App\Services
  */
-class ChatGptClient
+class ChatGptClient implements AuthenticatedCurlClientInterface
 {
     /**
      * ChatGPT endpoint for literature queries.

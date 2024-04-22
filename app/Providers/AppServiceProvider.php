@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Services\ChatGptClient;
+use App\External\ChatGpt\ChatGptClient;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 
