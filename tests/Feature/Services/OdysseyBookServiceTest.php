@@ -4,9 +4,12 @@ namespace Tests\Feature\Services;
 
 use App\Models\OdysseyBook;
 use App\Models\OdysseyBookMetadata;
+use App\Services\ChatGptClient;
 use App\Services\OdysseyService;
 use Database\Factories\OdysseyBookFactory;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\App;
+use Mockery;
 use Tests\TestCase;
 
 /**
@@ -97,5 +100,29 @@ class OdysseyBookServiceTest extends TestCase
         $this->expectException(ModelNotFoundException::class);
 
         $this->service->fetchRandomOdysseyPage();
+    }
+
+    /**
+     * When calling the context function
+     * With a provided passage
+     * Assert that the ChatGPT client is called with the appropriate query.
+     *
+     * @return void
+     */
+    public function test_get_context_function_calls_chatgpt_with_appropriate_query()
+    {
+        $testPassage = 'this is a test passage';
+        $testResponse = 'here is some context around the test passage';
+
+        $mockClient = Mockery::mock(ChatGptClient::class);
+        $mockClient->shouldReceive('query')
+            ->withArgs([OdysseyService::QUERY_PREFIX . "\n" . $testPassage])
+            ->andReturn('here is some context around the test passage');
+
+        $this->app->instance(ChatGptClient::class, $mockClient);
+
+        $response = $this->service->fetchPassageContext($testPassage);
+
+        $this->assertEquals($testResponse, $response);
     }
 }
