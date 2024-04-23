@@ -26,7 +26,14 @@ class OdysseyFormTest extends TestCase
             ->assertSet('pageNumber', 1);
     }
 
-    /** @test */
+    /**
+     * Given a book value in the database
+     * When calling the UpdatePage method
+     * It should get a new page from the model and set the page and page number.
+     *
+     * @test
+     * @small
+     */
     function can_update_page_text()
     {
         $page = OdysseyBook::make([
@@ -41,6 +48,25 @@ class OdysseyFormTest extends TestCase
         Livewire::test(OdysseyForm::class)
             ->call('updatePage')
             ->assertSet('page', 'test')
-            ->assertSet('pageNumber', 1);
+            ->assertSet('pageNumber', 1)
+            ->assertSet('context', '');
+    }
+
+    /**
+     * When getContext is called it should call the service
+     * And set the context property with the result.
+     *
+     * @test
+     * @small
+     */
+    function can_get_context()
+    {
+        OdysseyService::shouldReceive('fetchPassageContext')
+            ->withAnyArgs()
+            ->andReturn('test context');
+
+        Livewire::test(OdysseyForm::class)
+            ->call('getContext')
+            ->assertSet('context', 'test context');
     }
 }

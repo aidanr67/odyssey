@@ -109,17 +109,17 @@ class OdysseyBookServiceTest extends TestCase
      */
     public function test_get_context_function_calls_chatgpt_with_appropriate_query()
     {
-        $testPassage = 'this is a test passage';
-        $testResponse = 'here is some context around the test passage';
+        $testSelection = 'this is a test selection';
+        $testResponse = 'here is some context around the test selection';
 
         $mockClient = Mockery::mock(ChatGptClient::class);
         $mockClient->shouldReceive('query')
-            ->withArgs([OdysseyService::QUERY_PREFIX . "\n" . $testPassage])
-            ->andReturn('here is some context around the test passage');
+            ->withArgs([OdysseyService::QUERY_PREFIX . "\n" . $testSelection])
+            ->andReturn($testResponse);
 
-        $this->app->instance(ChatGptClient::class, $mockClient);
+        $this->app->instance('ChatGptClient', $mockClient);
 
-        $response = $this->service->fetchPassageContext($testPassage);
+        $response = $this->service->fetchPassageContext($testSelection);
 
         $this->assertEquals($testResponse, $response);
     }

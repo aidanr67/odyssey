@@ -1,10 +1,8 @@
 <?php
 namespace App\Services;
 
-use App\External\ChatGpt\ChatGptClient;
 use App\Models\OdysseyBook;
 use App\Models\OdysseyBookMetadata;
-use Illuminate\Support\Facades\App;
 
 /**
  * Class OdysseyService
@@ -31,13 +29,14 @@ class OdysseyService {
     /**
      * Gets context around a provided passage from ChatGPT.
      *
-     * @param string $passage
+     * @param string $selection
      *
      * @return string
      */
-    public function fetchPassageContext(string $passage): string
+    public function fetchPassageContext(string $selection): string
     {
-        return App::make(ChatGptClient::class)
-            ->query(self::QUERY_PREFIX . "\n{$passage}");
+//        return 'test blob';
+        return app('ChatGptClient')
+            ->query(self::QUERY_PREFIX . "\n{$selection}");
     }
 }

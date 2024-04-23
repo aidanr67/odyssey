@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Facade;
  *
  * @see App\Services\OdysseyService
  *
- * @method static fetchRandomOdysseyPage
+ * @method static fetchRandomOdysseyPage : string
+ * @method static fetchPassageContext(string $selection): string
  */
 class OdysseyService extends Facade
 {

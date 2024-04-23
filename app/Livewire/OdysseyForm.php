@@ -21,6 +21,13 @@ class OdysseyForm extends Component
     public string $page;
 
     /**
+     * Stores context for a given test selection.
+     *
+     * @var string
+     */
+    public string $context = '';
+
+    /**
      * Stores the page number.
      *
      * @var string
@@ -48,5 +55,16 @@ class OdysseyForm extends Component
 
         $this->page = $page->content;
         $this->pageNumber = $page->page_number;
+        $this->context = '';
+    }
+
+    /**
+     * Gets context for a selection of text.
+     *
+     * @return void
+     */
+    public function getContext()
+    {
+        $this->context = OdysseyService::fetchPassageContext($this->page);
     }
 }
