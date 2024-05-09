@@ -42,8 +42,10 @@ class OdysseyForm extends Component
      */
     public string $highlightedText = '';
 
+    public bool $showError = false;
+
     /**
-     * Render the livewire blade template.
+     * Render the Livewire blade template.
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
      */
@@ -75,9 +77,10 @@ class OdysseyForm extends Component
     public function getContext(): void
     {
         if (strlen($this->highlightedText) > 0) {
+            $this->showError = false;
             $this->context = OdysseyService::fetchPassageContext($this->highlightedText);
         } else {
-            $this->dispatch('no-highlighted-text');
+            $this->showError = true;
         }
     }
 
