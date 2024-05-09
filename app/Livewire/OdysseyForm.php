@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Support\Facades\OdysseyService;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 /**
@@ -35,6 +36,13 @@ class OdysseyForm extends Component
     public string $pageNumber;
 
     /**
+     * Stores a section of highlighted text.
+     *
+     * @var string
+     */
+    public string $highlightedText = '';
+
+    /**
      * Render the livewire blade template.
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
@@ -55,6 +63,7 @@ class OdysseyForm extends Component
 
         $this->page = $page->content;
         $this->pageNumber = $page->page_number;
+        $this->highlightedText = '';
         $this->context = '';
     }
 
@@ -63,8 +72,23 @@ class OdysseyForm extends Component
      *
      * @return void
      */
-    public function getContext()
+    public function getContext(): void
     {
-        $this->context = OdysseyService::fetchPassageContext($this->page);
+        if (strlen($this->highlightedText) > 0) {
+            $this->context = OdysseyService::fetchPassageContext($this->highlightedText);
+        } else {
+            $this->dispatch('no-highlighted-text');
+        }
+    }
+
+    #[On('highlighted-text-changed')]
+    /**
+     * @param $event
+     *
+     * @return void
+     */
+    public function handleHighlightedTextChanged($highlightedText)
+    {
+        $this->highlightedText = $highlightedText;
     }
 }
