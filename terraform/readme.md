@@ -13,13 +13,14 @@ make init
 make plan
 make apply
 ```
-Take note of the outputs and use the values in the applications .env file as follows
+Take note of the outputs and use the values in the applications .env file as follows. Note the secret can be retrieved from the state file locally or the Auth0 console.
 ```
-OKTA_CLIENT_ID=0oa123456
-OKTA_CLIENT_SECRET=ThisIsSomeSecretStr1ng
-OKTA_BASE_URL=https://dev-123456.auth0preview.com
-OKTA_REDIRECT_URI=https://localhost/auth/callback
-OKTA_AUTH_SERVER=aus123456
+AUTH0_DOMAIN=dev-snevqo0tpiw30jyj.us.auth0.com
+AUTH0_CLIENT_ID=jky6jdkEktEWkFCH1mqsiwN0vkH3x86G
+AUTH0_CLIENT_SECRET=somethingSuperSecret
+# This can be generated using `openssl rand -hex 32` from your shell.
+AUTH0_COOKIE_SECRET=0706e7013b80a79a787a61d24defdd3c6e1aa5aa505a2378fd6fdba31cedc47f
+AUTH0_BASE_URL=http://localhost
 ```
 
 Any other terraform commands can be run from inside the container

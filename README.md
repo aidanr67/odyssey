@@ -13,3 +13,6 @@
 ### Running tests
 
 Unit and integration test can be run with `make test`
+
+### Auth
+While currently not used for the app there is an Auth0 auth server. See `terraform/readme.md`
