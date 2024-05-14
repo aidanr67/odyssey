@@ -26,3 +26,9 @@ public/vendor/
 /storage
 .composer
 resources/views/vendor
+terraform/.ash_history
+terraform/.terraform
+terraform/.terraform.d
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/terraform.plan

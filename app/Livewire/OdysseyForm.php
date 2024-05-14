@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Support\Facades\OdysseyService;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\Livewire;
 
 /**
  * Class OdysseyForm
@@ -81,6 +82,7 @@ class OdysseyForm extends Component
             $this->context = OdysseyService::fetchPassageContext($this->highlightedText);
         } else {
             $this->showError = true;
+            $this->dispatch('no-highlighted-text');
         }
     }
 

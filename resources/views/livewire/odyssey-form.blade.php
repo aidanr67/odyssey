@@ -1,9 +1,11 @@
 <div class="relative min-h-screen bg-gray-100 bg-center sm:flex sm:flex-col sm:justify-center sm:items-center dark:bg-gray-900 selection:bg-indigo-500 selection:text-white">
     <div class="text-center w-1/2">
-        <div x-show="$wire.showError" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        @if($showError)
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
             <strong class="font-bold">Error!</strong>
             <span class="block sm:inline">Please highlight some text before attempting to get context.</span>
         </div>
+        @endif
         <div class="m-6">
             <h1 class="mb-4 text-5xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Homer's Odyssey</h1>
         </div>
@@ -69,9 +71,4 @@
         const highlightedText = window.getSelection().toString()
         Livewire.dispatch('highlighted-text-changed', { highlightedText: highlightedText });
     }
-    Livewire.on('no-highlighted-text', () => {
-        console.log('no highlighted text!');
-        Alpine.store('showError', true);
-        Alpine.store('isLoading', false);
-    });
 </script>
